@@ -112,6 +112,10 @@ Las siguientes librerías son utilizadas en el análisis:
 3. **Interpretación:** Presta atención a los comentarios y conclusiones en markdown
 4. **Código Limpio:** El notebook incluye comentarios explicativos para facilitar la comprensión
 
+## 🔗 Enlaces del TP1
+
+- Tablero Miro del TP1: https://miro.com/app/board/uXjVJeOThfE=/?share_link_id=504273934715
+
 ---
 
 📊 **Análisis Estadístico Avanzado** | 🎓 **CEIA - UBA** | 👩‍🎓 **Eliana Harriet (a2217)** 
