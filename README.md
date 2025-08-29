@@ -1,5 +1,7 @@
 # CEIA - Probabilidad y Estadística para la Inteligencia Artificial 📊
 
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
 Este repositorio contiene las soluciones y materiales para los trabajos prácticos del curso de **Probabilidad y Estadística para la Inteligencia Artificial** de la **Carrera de Especialización en Inteligencia Artificial (CEIA)** de la **Universidad de Buenos Aires (UBA)**.
 
 ## 👩‍🎓 Información del Estudiante
@@ -114,6 +116,13 @@ uv run python ruta/al/script.py
 - https://jupyterlab.readthedocs.io/
 - https://pandas.pydata.org/docs/
 - https://matplotlib.org/stable/gallery/
+
+## 🪪 Licencia
+
+Este repositorio se distribuye bajo **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**.
+
+- Texto completo: `LICENSE`
+- Resumen: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 ---
 
