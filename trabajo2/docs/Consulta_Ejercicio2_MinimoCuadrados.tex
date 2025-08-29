@@ -1,0 +1,183 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{xcolor}
+
+\geometry{margin=2.5cm}
+
+\definecolor{ubaazul}{RGB}{0,47,95}
+\definecolor{ubagris}{RGB}{88,88,90}
+
+\begin{document}
+
+\section{Ejercicio 2}
+\textbf{Estimadores de mínimos cuadrados}
+
+\subsection{Enunciado}
+Se pretende estimar los valores de producción $Y$ (en miles de toneladas) de cierto material, en función del tiempo transcurrido $X$ (en meses) usando los valores de la tabla:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$X$ & 2 & 6 & 14 & 15 & 23 \\
+\hline
+$Y$ & 3 & 48 & 160 & 201 & 424 \\
+\hline
+\end{tabular}
+\end{center}
+
+Se plantea un modelo de la forma $Y = a + bx + cx^2$. Encontrar los estimadores de mínimos cuadrados para $a$, $b$ y $c$ en este modelo.
+
+\subsection{Solución}
+
+En este ejercicio aplicaremos el método de mínimos cuadrados para estimar los parámetros de un modelo de regresión cuadrática. El objetivo es minimizar la suma de cuadrados de los residuos.
+
+\textbf{Paso 1: Formulación del problema}
+
+Tenemos el modelo cuadrático:
+\[
+Y = a + bx + cx^2 + \varepsilon
+\]
+
+donde $\varepsilon$ representa el error aleatorio. Los datos observados son:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$x_i$ & 2 & 6 & 14 & 15 & 23 \\
+\hline
+$y_i$ & 3 & 48 & 160 & 201 & 424 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Paso 2: Conversión a forma matricial}
+
+El modelo cuadrático se puede expresar como un modelo de regresión lineal múltiple:
+\[
+\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}
+\]
+
+donde:
+\begin{itemize}
+    \item $\mathbf{y} = \begin{bmatrix} 3 \\ 48 \\ 160 \\ 201 \\ 424 \end{bmatrix}$ es el vector de respuestas
+    \item $\boldsymbol{\beta} = \begin{bmatrix} a \\ b \\ c \end{bmatrix}$ es el vector de parámetros a estimar
+    \item $\mathbf{X}$ es la matriz de diseño
+\end{itemize}
+
+La matriz de diseño $\mathbf{X}$ se construye con las columnas $[1, x, x^2]$:
+\[
+\mathbf{X} = \begin{bmatrix}
+1 & 2 & 4 \\
+1 & 6 & 36 \\
+1 & 14 & 196 \\
+1 & 15 & 225 \\
+1 & 23 & 529
+\end{bmatrix}
+\]
+
+\textbf{Paso 3: Fórmula de mínimos cuadrados}
+
+El estimador de mínimos cuadrados está dado por:
+\[
+\hat{\boldsymbol{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}
+\]
+
+\textbf{Paso 4: Cálculo de $\mathbf{X}^T\mathbf{X}$}
+
+\[
+\mathbf{X}^T\mathbf{X} = \begin{bmatrix}
+    1 & 1 & 1 & 1 & 1 \\
+    2 & 6 & 14 & 15 & 23 \\
+    4 & 36 & 196 & 225 & 529
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 2 & 4 \\
+    1 & 6 & 36 \\
+    1 & 14 & 196 \\
+    1 & 15 & 225 \\
+    1 & 23 & 529
+\end{bmatrix}
+\]
+
+\[
+\mathbf{X}^T\mathbf{X} = \begin{bmatrix}
+5 & 60 & 990 \\
+60 & 990 & 18510 \\
+990 & 18510 & 370194
+\end{bmatrix}
+\]
+
+\textbf{Paso 5: Cálculo de $\mathbf{X}^T\mathbf{y}$}
+
+\[
+\mathbf{X}^T\mathbf{y} = \begin{bmatrix}
+    1 & 1 & 1 & 1 & 1 \\
+    2 & 6 & 14 & 15 & 23 \\
+    4 & 36 & 196 & 225 & 529
+\end{bmatrix}
+\begin{bmatrix}
+    3 \\
+    48 \\
+    160 \\
+    201 \\
+    424
+\end{bmatrix}
+\]
+
+\[
+\mathbf{X}^T\mathbf{y} = \begin{bmatrix} 836 \\ 15301 \\ 302621 \end{bmatrix}
+\]
+
+\textbf{Paso 6: Cálculo de $(\mathbf{X}^T\mathbf{X})^{-1}$}
+
+\[
+\mathbf{X}^T\mathbf{X} = \begin{bmatrix} 5 & 60 & 990 \\ 60 & 990 & 18510 \\ 990 & 18510 & 370194 \end{bmatrix}
+\]
+
+\[
+(\mathbf{X}^T\mathbf{X})^{-1} \approx \begin{bmatrix}
+1.555 & -0.253 & 0.0085 \\
+-0.253 & 0.0567 & -0.00216 \\
+0.0085 & -0.00216 & 0.0000879
+\end{bmatrix}
+\]
+
+\textbf{Paso 7: Cálculo final de los estimadores}
+
+\begin{align*}
+\hat{\boldsymbol{\beta}} &= (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} \\
+&\approx \begin{bmatrix} 1.555 & -0.253 & 0.0085 \\ -0.253 & 0.0567 & -0.00216 \\ 0.0085 & -0.00216 & 0.0000879 \end{bmatrix} \begin{bmatrix} 836 \\ 15301 \\ 302621 \end{bmatrix} \\
+&\approx \begin{bmatrix} -1.434 \\ 2.865 \\ 0.678 \end{bmatrix}
+\end{align*}
+
+
+
+\textbf{Conclusión}
+
+Los estimadores de mínimos cuadrados para el modelo $Y = a + bx + cx^2$ son:
+
+\[
+\boxed{
+\begin{aligned}
+\hat{a} &= -1.434 \\
+\hat{b} &= 2.865 \\
+\hat{c} &= 0.678
+\end{aligned}
+}
+\]
+
+El modelo estimado es:
+\[
+\hat{Y} = -1.434 + 2.865x + 0.678x^2
+\]
+
+Este modelo cuadrático captura la relación no lineal entre el tiempo transcurrido y la producción del material.
+
+\end{document}

@@ -1,0 +1,538 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{xcolor}
+
+\geometry{margin=2.5cm}
+
+\definecolor{ubaazul}{RGB}{0,47,95}
+\definecolor{ubagris}{RGB}{88,88,90}
+
+\title{SOLUCIONES - SEGUNDO TRABAJO PRÁCTICO}
+\author{Eliana Harriet}
+\date{\today}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    
+    \vspace*{0.5cm}
+    
+    % Logo de la universidad
+    \includegraphics[width=3cm]{../../assets/Logo-fiuba_big.png}\\[0.5cm]
+    
+    % Encabezado institucional
+    {\color{ubaazul}\Large \textbf{UNIVERSIDAD DE BUENOS AIRES}}\\[0.2cm]
+    {\color{ubaazul}\large \textbf{Facultad de Ingeniería}}\\[0.1cm]
+    {\color{ubagris}\normalsize Laboratorio de Sistemas Embebidos}\\[0.1cm]
+    {\color{ubagris}\normalsize Especialización en Inteligencia Artificial}\\[0.3cm]
+    
+    % Espacio transparente (línea invisible)
+    \rule{0cm}{0.5pt}\\[0.5cm]
+    
+    % Título de la materia
+    {\color{ubaazul}\Large \textbf{Probabilidad y Estadística}}\\[0.2cm]
+    {\color{ubaazul}\Large \textbf{para la Inteligencia Artificial}}\\[0.8cm]
+    
+    % Título del documento
+    {\Large \textbf{SEGUNDO TRABAJO PRÁCTICO}}\\[0.5cm]
+    
+    % Espacio transparente antes de la tabla
+    \rule{0cm}{0.5pt}\\[1cm]
+    
+    % Información en tabla más elegante
+    \begin{tabular}{@{}p{4cm}p{7cm}@{}}
+        \textbf{Docente:} & Camilo Argoty \\[0.4cm]
+        \textbf{Estudiante:} & Eliana Harriet \\[0.4cm]
+        \textbf{Código SIU:} & a2217 \\[0.4cm]
+        \textbf{Fecha límite:} & 17 de Agosto de 2025 \\[0.4cm]
+    \end{tabular}
+    
+    \vfill
+    
+\end{titlepage}
+
+
+
+\tableofcontents
+\newpage
+
+\section{Ejercicio 1}
+\textbf{Método de máxima verosimilitud}
+
+\subsection{Enunciado}
+Una variable aleatoria discreta $X$ puede tomar los valores 0, 1, 2 y 3. Las probabilidades para cada valor posible están dadas por la siguiente tabla:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+$X$ & 0 & 1 & 2 & 3 \\
+\hline
+$p$ & $\frac{3\theta}{3}$ & $\frac{6\theta}{3}$ & $\frac{1-3\theta}{3}$ & $\frac{2(1-3\theta)}{3}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Si experimentalmente se obtienen los siguientes datos:
+$(0, 2, 3, 0, 1, 0, 3, 2, 1, 0)$,
+determine el valor de $\theta$ usando el método de máxima verosimilitud.
+
+\subsection{Solución}
+
+En este ejercicio utilizaremos el método de máxima verosimilitud para estimar el parámetro $\theta$ de una distribución discreta, basándonos en una muestra de datos observados.
+
+\textbf{Paso 1: Verificación de la distribución de probabilidad}
+
+Primero verificamos que las probabilidades dadas constituyen una distribución válida. Las probabilidades son:
+\begin{align*}
+P(X=0) &= \frac{3\theta}{3} = \theta \\
+P(X=1) &= \frac{6\theta}{3} = 2\theta \\
+P(X=2) &= \frac{1-3\theta}{3} \\
+P(X=3) &= \frac{2(1-3\theta)}{3}
+\end{align*}
+
+Verificamos que suman 1:
+\begin{align*}
+\sum_{i=0}^{3} P(X=i) &= \theta + 2\theta + \frac{1-3\theta}{3} + \frac{2(1-3\theta)}{3} \\
+&= 3\theta + \frac{1-3\theta + 2(1-3\theta)}{3} \\
+&= 3\theta + \frac{1-3\theta + 2-6\theta}{3} \\
+&= 3\theta + \frac{3-9\theta}{3} \\
+&= 3\theta + 1 - 3\theta = 1 \checkmark
+\end{align*}
+
+\textbf{Paso 2: Análisis de los datos observados}
+
+Los datos experimentales son: $(0, 2, 3, 0, 1, 0, 3, 2, 1, 0)$
+
+Contamos las frecuencias observadas:
+\begin{align*}
+n_0 &= 4 \text{ (apariciones de 0)} \\
+n_1 &= 2 \text{ (apariciones de 1)} \\
+n_2 &= 2 \text{ (apariciones de 2)} \\
+n_3 &= 2 \text{ (apariciones de 3)} \\
+n &= 10 \text{ (total de observaciones)}
+\end{align*}
+
+\textbf{Paso 3: Construcción de la función de verosimilitud}
+
+La función de verosimilitud para una muestra de variables aleatorias independientes e idénticamente distribuidas es:
+
+\begin{align*}
+L(\theta) &= \prod_{i=1}^{n} f_{x_i}(x_i, \theta) \\
+&= [P(X=0)]^{n_0} \times [P(X=1)]^{n_1} \times [P(X=2)]^{n_2} \times [P(X=3)]^{n_3} \\
+&= \theta^4 \times (2\theta)^2 \times \left(\frac{1-3\theta}{3}\right)^2 \times \left(\frac{2(1-3\theta)}{3}\right)^2
+\end{align*}
+
+Simplificando:
+\begin{align*}
+L(\theta) &= \theta^4 \times 4\theta^2 \times \frac{(1-3\theta)^2}{9} \times \frac{4(1-3\theta)^2}{9} \\
+&= 4\theta^6 \times \frac{(1-3\theta)^2}{9} \times \frac{4(1-3\theta)^2}{9} \\
+&= \frac{16\theta^6(1-3\theta)^4}{81}
+\end{align*}
+
+\textbf{Paso 4: Función de log-verosimilitud}
+
+Para facilitar los cálculos de derivación, aplicamos el logaritmo natural a la función de verosimilitud. Como el logaritmo es una función monótona creciente, el máximo de $L(\theta)$ coincide con el máximo de $\ln L(\theta)$.
+
+Partiendo de:
+\[
+L(\theta) = \frac{16\theta^6(1-3\theta)^4}{81}
+\]
+
+Aplicamos logaritmo natural:
+\begin{align*}
+\ln L(\theta) &= \ln\left(\frac{16\theta^6(1-3\theta)^4}{81}\right) \\
+&= \ln(16) + \ln(\theta^6) + \ln[(1-3\theta)^4] - \ln(81) \\
+&= \ln(16) + 6\ln(\theta) + 4\ln(1-3\theta) - \ln(81)
+\end{align*}
+
+Como $\ln(16)$ y $\ln(81)$ son constantes, podemos trabajar con la función simplificada:
+\[
+\ln L(\theta) = 6\ln(\theta) + 4\ln(1-3\theta) + \text{constante}
+\]
+
+\textbf{Paso 5: Condición de primer orden}
+
+Para encontrar el estimador de máxima verosimilitud, aplicamos la condición necesaria de primer orden: derivamos la log-verosimilitud con respecto a $\theta$ e igualamos a cero.
+
+Calculamos cada derivada por separado:
+\begin{align*}
+\frac{d}{d\theta}[6\ln(\theta)] &= 6 \cdot \frac{1}{\theta} = \frac{6}{\theta} \\
+\frac{d}{d\theta}[4\ln(1-3\theta)] &= 4 \cdot \frac{1}{1-3\theta} \cdot \frac{d}{d\theta}(1-3\theta) \\
+&= 4 \cdot \frac{1}{1-3\theta} \cdot (-3) = \frac{-12}{1-3\theta}
+\end{align*}
+
+Por lo tanto:
+\begin{align*}
+\frac{d}{d\theta}[\ln L(\theta)] &= \frac{6}{\theta} + \frac{-12}{1-3\theta} = 0 \\
+\frac{6}{\theta} - \frac{12}{1-3\theta} &= 0
+\end{align*}
+
+\textbf{Paso 6: Resolución de la ecuación}
+
+Resolvemos la ecuación de primer orden paso a paso:
+
+\begin{align*}
+\frac{6}{\theta} - \frac{12}{1-3\theta} &= 0 \\
+\frac{6}{\theta} &= \frac{12}{1-3\theta} \\
+6(1-3\theta) &= 12\theta \\
+6 - 18\theta &= 12\theta \\
+6 &= 12\theta + 18\theta \\
+6 &= 30\theta \\
+\theta &= \frac{6}{30} = \frac{1}{5} = 0.2
+\end{align*}
+
+\textbf{Paso 7: Verificación de restricciones}
+
+Para que todas las probabilidades sean válidas, necesitamos:
+\begin{itemize}
+    \item $\theta > 0$ para que $P(X=0)$ y $P(X=1)$ sean positivas
+    \item $1-3\theta > 0 \Rightarrow \theta < \frac{1}{3}$ para que $P(X=2)$ y $P(X=3)$ sean positivas
+\end{itemize}
+
+Como $\theta = 0.2$, tenemos:
+\begin{itemize}
+    \item $0.2 > 0$ \checkmark
+    \item $0.2 < \frac{1}{3} \approx 0.333$ \checkmark
+\end{itemize}
+
+\textbf{Paso 8: Verificación de las probabilidades resultantes}
+
+Con $\theta = 0.2$, las probabilidades son:
+\begin{align*}
+P(X=0) &= 0.2 \\
+P(X=1) &= 2(0.2) = 0.4 \\
+P(X=2) &= \frac{1-3(0.2)}{3} = \frac{0.4}{3} \approx 0.133 \\
+P(X=3) &= \frac{2(0.4)}{3} = \frac{0.8}{3} \approx 0.267
+\end{align*}
+
+Verificación: $0.2 + 0.4 + 0.133 + 0.267 = 1.0$ \checkmark
+
+\textbf{Conclusión}
+
+El estimador de máxima verosimilitud para el parámetro $\theta$ es:
+\[
+\boxed{\hat{\theta}_{MV} = 0.2}
+\]
+
+Este valor maximiza la probabilidad de observar los datos experimentales dados y satisface todas las restricciones necesarias para que la distribución sea válida.
+
+\section{Ejercicio 2}
+\textbf{Estimadores de mínimos cuadrados}
+
+\subsection{Enunciado}
+Se pretende estimar los valores de producción $Y$ (en miles de toneladas) de cierto material, en función del tiempo transcurrido $X$ (en meses) usando los valores de la tabla:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$X$ & 2 & 6 & 14 & 15 & 23 \\
+\hline
+$Y$ & 3 & 48 & 160 & 201 & 424 \\
+\hline
+\end{tabular}
+\end{center}
+
+Se plantea un modelo de la forma $Y = a + bx + cx^2$. Encontrar los estimadores de mínimos cuadrados para $a$, $b$ y $c$ en este modelo.
+
+\subsection{Solución}
+
+En este ejercicio aplicaremos el método de mínimos cuadrados para estimar los parámetros de un modelo de regresión cuadrática. El objetivo es minimizar la suma de cuadrados de los residuos.
+
+\textbf{Paso 1: Formulación del problema}
+
+Tenemos el modelo cuadrático:
+\[
+Y = a + bx + cx^2 + \varepsilon
+\]
+
+donde $\varepsilon$ representa el error aleatorio. Los datos observados son:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$x_i$ & 2 & 6 & 14 & 15 & 23 \\
+\hline
+$y_i$ & 3 & 48 & 160 & 201 & 424 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Paso 2: Conversión a forma matricial}
+
+El modelo cuadrático se puede expresar como un modelo de regresión lineal múltiple:
+\[
+\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}
+\]
+
+donde:
+\begin{itemize}
+    \item $\mathbf{y} = \begin{bmatrix} 3 \\ 48 \\ 160 \\ 201 \\ 424 \end{bmatrix}$ es el vector de respuestas
+    \item $\boldsymbol{\beta} = \begin{bmatrix} a \\ b \\ c \end{bmatrix}$ es el vector de parámetros a estimar
+    \item $\mathbf{X}$ es la matriz de diseño
+\end{itemize}
+
+La matriz de diseño $\mathbf{X}$ se construye con las columnas $[1, x, x^2]$:
+\[
+\mathbf{X} = \begin{bmatrix}
+1 & 2 & 4 \\
+1 & 6 & 36 \\
+1 & 14 & 196 \\
+1 & 15 & 225 \\
+1 & 23 & 529
+\end{bmatrix}
+\]
+
+\textbf{Paso 3: Fórmula de mínimos cuadrados}
+
+El estimador de mínimos cuadrados está dado por:
+\[
+\hat{\boldsymbol{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}
+\]
+
+\textbf{Paso 4: Cálculo de $\mathbf{X}^T\mathbf{X}$}
+
+\[
+\mathbf{X}^T\mathbf{X} = \begin{bmatrix}
+    1 & 1 & 1 & 1 & 1 \\
+    2 & 6 & 14 & 15 & 23 \\
+    4 & 36 & 196 & 225 & 529
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 2 & 4 \\
+    1 & 6 & 36 \\
+    1 & 14 & 196 \\
+    1 & 15 & 225 \\
+    1 & 23 & 529
+\end{bmatrix}
+\]
+
+\[
+\mathbf{X}^T\mathbf{X} = \begin{bmatrix}
+5 & 60 & 990 \\
+60 & 990 & 18510 \\
+990 & 18510 & 370194
+\end{bmatrix}
+\]
+
+\textbf{Paso 5: Cálculo de $\mathbf{X}^T\mathbf{y}$}
+
+\[
+\mathbf{X}^T\mathbf{y} = \begin{bmatrix}
+    1 & 1 & 1 & 1 & 1 \\
+    2 & 6 & 14 & 15 & 23 \\
+    4 & 36 & 196 & 225 & 529
+\end{bmatrix}
+\begin{bmatrix}
+    3 \\
+    48 \\
+    160 \\
+    201 \\
+    424
+\end{bmatrix}
+\]
+
+\[
+\mathbf{X}^T\mathbf{y} = \begin{bmatrix} 836 \\ 15301 \\ 302621 \end{bmatrix}
+\]
+
+\textbf{Paso 6: Cálculo de $(\mathbf{X}^T\mathbf{X})^{-1}$}
+
+\[
+\mathbf{X}^T\mathbf{X} = \begin{bmatrix} 5 & 60 & 990 \\ 60 & 990 & 18510 \\ 990 & 18510 & 370194 \end{bmatrix}
+\]
+
+\[
+(\mathbf{X}^T\mathbf{X})^{-1} \approx \begin{bmatrix}
+1.555 & -0.253 & 0.0085 \\
+-0.253 & 0.0567 & -0.00216 \\
+0.0085 & -0.00216 & 0.0000879
+\end{bmatrix}
+\]
+
+\textbf{Paso 7: Cálculo final de los estimadores}
+
+\begin{align*}
+\hat{\boldsymbol{\beta}} &= (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} \\
+&\approx \begin{bmatrix} 1.555 & -0.253 & 0.0085 \\ -0.253 & 0.0567 & -0.00216 \\ 0.0085 & -0.00216 & 0.0000879 \end{bmatrix} \begin{bmatrix} 836 \\ 15301 \\ 302621 \end{bmatrix} \\
+&\approx \begin{bmatrix} -1.434 \\ 2.865 \\ 0.678 \end{bmatrix}
+\end{align*}
+
+
+
+\textbf{Conclusión}
+
+Los estimadores de mínimos cuadrados para el modelo $Y = a + bx + cx^2$ son:
+
+\[
+\boxed{
+\begin{aligned}
+\hat{a} &= -1.434 \\
+\hat{b} &= 2.865 \\
+\hat{c} &= 0.678
+\end{aligned}
+}
+\]
+
+El modelo estimado es:
+\[
+\hat{Y} = -1.434 + 2.865x + 0.678x^2
+\]
+
+Este modelo cuadrático captura la relación no lineal entre el tiempo transcurrido y la producción del material.
+
+\section{Ejercicio 3}
+\textbf{Inferencia bayesiana}
+
+\subsection{Enunciado}
+Don Francisco tiene 5 clientes a los que les ha vendido mercancías a crédito y, de ellos, 3 están en mora con el pago prometido. Matías, teniendo en cuenta la información disponible, considera que puede modelar el porcentaje $p$ de morosidad según una distribución $B(2, 3)$. Para determinar los parámetros $\alpha$ y $\beta$, decide usar inferencia bayesiana. Con esto, pretende explicarle a Don Francisco, cómo será el comportamiento de pago de sus clientes a crédito. 
+
+Determinen la distribución a posteriori del parámetro $p$ de porcentaje de morosidad ($\alpha$ y $\beta$). Determinar su media y su varianza.
+
+\subsection{Solución}
+
+En este ejercicio aplicaremos inferencia bayesiana para actualizar nuestro conocimiento sobre el parámetro de morosidad usando distribuciones conjugadas Beta-Binomial.
+
+\textbf{Paso 1: Identificación del modelo}
+
+Tenemos los siguientes elementos:
+\begin{itemize}
+    \item \textbf{Datos observados}: 5 clientes, 3 en mora
+    \item \textbf{Distribución a priori}: $p \sim \text{Beta}(2, 3)$
+    \item \textbf{Verosimilitud}: Binomial con $n = 5$ ensayos y $k = 3$ éxitos (clientes en mora)
+\end{itemize}
+
+El número de clientes en mora sigue una distribución binomial:
+\[
+X | p \sim \text{Binomial}(n = 5, p)
+\]
+
+\textbf{Paso 2: Distribución a priori}
+
+La distribución a priori es:
+\[
+p \sim \text{Beta}(\alpha_0 = 2, \beta_0 = 3)
+\]
+
+Con función de densidad:
+\[
+\pi(p) = \frac{\Gamma(2+3)}{\Gamma(2)\Gamma(3)} p^{2-1}(1-p)^{3-1} = \frac{\Gamma(5)}{\Gamma(2)\Gamma(3)} p(1-p)^2
+\]
+
+Simplificando: $\pi(p) = 12p(1-p)^2$ para $p \in [0,1]$
+
+\textbf{Paso 3: Función de verosimilitud}
+
+La función de verosimilitud expresa la probabilidad de observar $k = 3$ clientes en mora de un total de $n = 5$ clientes, dado el parámetro $p$. 
+
+Como el número de clientes en mora sigue una distribución binomial, la verosimilitud es:
+\[
+L(p|k = 3) = \binom{5}{3} p^3 (1-p)^{5-3} = 10 p^3 (1-p)^2
+\]
+
+Esta función representa qué tan probable es observar exactamente 3 clientes en mora para diferentes valores del parámetro $p$.
+
+\textbf{Paso 4: Aplicación del teorema de Bayes}
+
+Usando el teorema de Bayes para obtener la distribución a posteriori:
+\[
+f(p|k = 3) = \frac{L(p|k = 3) \cdot \pi(p)}{\int_0^1 L(p|k = 3) \cdot \pi(p) \, dp}
+\]
+
+Sustituyendo:
+\begin{align*}
+f(p|k = 3) &\propto L(p|k = 3) \cdot \pi(p) \\
+&\propto p^3 (1-p)^2 \cdot p(1-p)^2 \\
+&\propto p^{3+1} (1-p)^{2+2} \\
+&\propto p^4 (1-p)^4
+\end{align*}
+
+\textbf{Paso 5: Identificación de la distribución a posteriori}
+
+Del Paso 4 obtuvimos que la distribución a posteriori es proporcional a:
+\[
+f(p|k = 3) \propto p^4 (1-p)^4
+\]
+
+Recordamos que la función de densidad de una distribución $\text{Beta}(\alpha, \beta)$ tiene la forma:
+\[
+f(p) \propto p^{\alpha-1} (1-p)^{\beta-1}
+\]
+
+Comparando nuestro resultado $p^4 (1-p)^4$ con la forma estándar $p^{\alpha-1} (1-p)^{\beta-1}$:
+\begin{align*}
+\alpha - 1 &= 4 \Rightarrow \alpha = 5 \\
+\beta - 1 &= 4 \Rightarrow \beta = 5
+\end{align*}
+
+Por lo tanto:
+\[
+p|k = 3 \sim \text{Beta}(\alpha_n = 5, \beta_n = 5)
+\]
+
+Verificamos usando la regla de actualización bayesiana para conjugadas Beta-Binomial:
+\begin{align*}
+\alpha_n &= \alpha_0 + k = 2 + 3 = 5 \checkmark \\
+\beta_n &= \beta_0 + (n - k) = 3 + (5 - 3) = 3 + 2 = 5 \checkmark
+\end{align*}
+
+Conclusión del paso:
+\[
+\boxed{p|k = 3 \sim \text{Beta}(5, 5)}
+\]
+
+\textbf{Paso 6: Cálculo de la media a posteriori}
+
+Para una distribución $\text{Beta}(\alpha, \beta)$, la media es:
+\[
+E[p|k = 3] = \frac{\alpha_n}{\alpha_n + \beta_n} = \frac{5}{5 + 5} = \frac{5}{10} = 0.5
+\]
+
+\textbf{Paso 7: Cálculo de la varianza a posteriori}
+
+Para una distribución $\text{Beta}(\alpha, \beta)$, la varianza es:
+\[
+\text{Var}(p|k = 3) = \frac{\alpha_n \beta_n}{(\alpha_n + \beta_n)^2(\alpha_n + \beta_n + 1)}
+\]
+
+Sustituyendo valores:
+\[
+\text{Var}(p|k = 3) = \frac{5 \cdot 5}{(5 + 5)^2(5 + 5 + 1)} = \frac{25}{10^2 \cdot 11} = \frac{25}{1100} = \frac{1}{44} \approx 0.0227
+\]
+
+\textbf{Paso 8: Interpretación y comparación}
+
+\textbf{Distribución a priori vs. a posteriori:}
+\begin{itemize}
+    \item \textbf{A priori}: $\text{Beta}(2, 3)$ con $E[p] = \frac{2}{5} = 0.4$ y $\text{Var}(p) = \frac{6}{150} = 0.04$
+    \item \textbf{A posteriori}: $\text{Beta}(5, 5)$ con $E[p] = 0.5$ y $\text{Var}(p) = 0.0227$
+\end{itemize}
+
+\textbf{Conclusiones}
+
+Los parámetros de la distribución a posteriori son:
+\[
+\boxed{\alpha = 5, \quad \beta = 5}
+\]
+
+La media y varianza a posteriori son:
+\[
+\boxed{E[p|k = 3] = 0.5, \quad \text{Var}(p|k = 3) = \frac{1}{44} \approx 0.0227}
+\]
+
+\textbf{Interpretación para Don Francisco:}
+\begin{itemize}
+    \item La estimación de morosidad se actualizó de 40\% (a priori) a 50\% (a posteriori)
+    \item La incertidumbre se redujo: la varianza disminuyó de 0.04 a 0.0227
+    \item Los datos observados (3 de 5 clientes en mora) han influido en aumentar la estimación de morosidad
+    \item La distribución a posteriori es simétrica alrededor de 0.5, indicando igual probabilidad de pago o mora
+\end{itemize}
+
+\end{document}

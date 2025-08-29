@@ -1,0 +1,48 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Jupyter
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.brf
+*.fdb_latexmk
+*.fls
+*.log
+*.lot
+*.lof
+*.out
+*.toc
+*.synctex.gz
+*.run.xml
+
+# uv / lock artifacts
+.uv/
+.uv_cache/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python version manager files
+.python-version
+.tool-versions
